@@ -301,7 +301,6 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 
 }
 if (!isset($_SESSION['LAST_ACTIVITY'])) {
 session_start();
-$_SESSION['LAST_ACTIVITY'] = time(); 
 //echo $_SESSION['LAST_ACTIVITY'];// update last activity time stamp
 	if (isset($_POST['email']) and isset($_POST['password'])) {
 		$user = $_POST['email'];
@@ -326,13 +325,15 @@ $_SESSION['LAST_ACTIVITY'] = time();
 				$_SESSION['salt'] = $salt1;
 				$_SESSION['pwd'] = $pwd;
 				$_SESSION['user'] = $user;
+				$_SESSION['LAST_ACTIVITY'] = time(); 
 				$time = time();
 				$_SESSION['loginTime'] = $time;
 				$hash = sha1($user.$time.$salt1);
 				$_SESSION['hash'] = $hash;
 				//setcookie('hash', $hash);
 				//echo $_COOKIE['user'];
-				header('location:/../aws/auth_user.php');
+				//header('location:/../aws/auth_user.php');
+				header('location:home.php');
 				}
 			echo "Bad Username or Password. <a href='reset_password.php'>Reset Password?</a><br>";
 			}else{

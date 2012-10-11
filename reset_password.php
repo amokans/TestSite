@@ -297,7 +297,7 @@ fieldset
 <?php
 session_start();
 include_once ('connect.php');
-include_once ('login/salt.php');
+include_once ('salt.php');
 if (isset($_POST['new_password']) and isset($_POST['verify_password']) and isset($_POST['employeeId'])) {
 	$empId = ($_POST['employeeId']);
 	$new_pwd = sha1($_POST['new_password'].$pepper);
@@ -313,20 +313,20 @@ if (isset($_POST['new_password']) and isset($_POST['verify_password']) and isset
 		list($old_pwd)=mysql_fetch_array($result);
 		$query = "UPDATE users SET password='$new_pwd' WHERE id=$id";
 		mysql_query($query,$link);
+		echo $query."<p></p>";
 		$query = "SELECT password FROM users WHERE id=$id";
 		$result = mysql_query($query,$link);
 		list($new_pwd) = mysql_fetch_array($result);
 		//echo $query."<br>";
+		$to = "ericjamesadams@gmail.com";
+		$subject = "Password Reset";
+		$body = "Your Password has been successfully reset. Please '<a href=http://localhost:8888/TestSite/login.php>login</a>' again.";
+		if (mail($to, $subject, $body)) {
+		   echo("<p>Message successfully sent!</p>");
+		  } else {
+		   echo("<p>Message delivery failed...</p>");
+		  }
 		if ($new_pwd == $verify_pwd) {
-			 $to = "ericjamesadams@gmail.com";
-			 $subject = "Password Reset";
-			 $body = "Your Password has been successfully reset. Please '<a href=http://localhost:8888/TestSite/login.php>login</a>' again.";
-			 if (mail($to, $subject, $body)) {
-			   echo("<p>Message successfully sent!</p>");
-			  } else {
-			   echo("<p>Message delivery failed...</p>");
-			  }
-
 			echo "Your new password has been successfully changed. You may now <a href='login.php'>login</a><p></p>";
 			}
 	}else{

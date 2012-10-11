@@ -335,7 +335,7 @@ fieldset
 		</select>
     </fieldset>
     <fieldset id="actions">
-        <input type="submit" id="submit" value="Log in">
+        <input type="submit" id="submit" value="Register">
         <a href="reset_password.php">Forgot your password?</a><a href="login.php">Already Have Account?</a>
     </fieldset>
 
