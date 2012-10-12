@@ -155,31 +155,59 @@ ob_flush();
         <!-- Tabs -->
                   <h3>Instances</h3>
           <ul data-bs-tabs-options="{}" class="tabs" data-behavior="BS.Tabs">
-            <li class="active"><a href="#home">AWS Service Updates</a></li>
-            <li><a>Profile</a></li>
+            <li class="active"><a href="#aws_ec2">AWS Service Updates</a></li>
+            <li><a >RightScale</a></li>
             <li><a>Messages</a></li>
             <li><a>Settings</a></li>
           </ul>
           <div id="my-tab-content" class="tab-content">
-            <div style="display: block; overflow: visible;" class="active" id="home">
+            <div style="display: block; overflow: visible;" class="active" id="aws_ec2">
               <p><script language="JavaScript" src="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y" type="text/javascript"></script>
 
 <noscript>
 <a href="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y&html=y">View RSS feed</a>
 </noscript></p>
             </div>
-            <div id="profile">
-              <p>Food truck fixie locavore, accusamus mcsweeney's marfa
-nulla single-origin coffee squid. Exercitation +1 labore velit, blog
-sartorial PBR leggings next level wes anderson artisan four loko
-farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim
- craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo
- nostrud organic, assumenda labore aesthetic magna delectus mollit.
-Keytar helvetica VHS salvia yr, vero magna velit sapiente labore
-stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable
-jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art
-party scenester stumptown, tumblr butcher vero sint qui sapiente
-accusamus tattooed echo park.</p>
+            <div id="content">
+              <p>    <script src="http://www.google.com/jsapi?key=AIzaSyA5m1Nc8ws2BbmPRwKu5gFradvD_hgq6G0" type="text/javascript"></script>
+    <script type="text/javascript">
+    /*
+    *  How to load a feed via the Feeds API.
+    */
+    
+    google.load("feeds", "1");
+    
+    // Our callback function, for when a feed is loaded.
+    function feedLoaded(result) {
+      if (!result.error) {
+        // Grab the container we will put the results into
+        var container = document.getElementById("content");
+        container.innerHTML = '';
+    
+        // Loop through the feeds, putting the titles onto the page.
+        // Check out the result object for a list of properties returned in each entry.
+        // http://code.google.com/apis/ajaxfeeds/documentation/reference.html#JSON
+        for (var i = 0; i < result.feed.entries.length; i++) {
+          var entry = result.feed.entries[i];
+          var div = document.createElement("div");
+          div.appendChild(document.createTextNode(entry.title));
+          container.appendChild(div);
+        }
+      }
+    }
+    
+    function OnLoad() {
+      // Create a feed instance that will grab Digg's feed.
+      var feed = new google.feeds.Feed("https://my.rightscale.com/acct/19654/user_notifications/feed.atom?feed_token=fada3a148e2f4effb8e2868a134448e13e466964");
+    
+      // Calling load sends the request off.  It requires a callback function.
+      feed.load(feedLoaded);
+    }
+    
+    google.setOnLoadCallback(OnLoad);
+    </script>
+    Loading...
+              	</p>
             </div>
             <div id="messages">
               <p>Banksy do proident, brooklyn photo booth delectus sunt
