@@ -16,6 +16,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 
     session_destroy();   // destroy session data in storage
     echo "Your Session has expired. Please Login again.<br>";
     echo "<a href='login.php'>Login</a>";
+	break;
 }
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] < 900)){
 		$auth = $_SESSION['salt'];
@@ -36,11 +37,6 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] < 
 				//header('location:login_form.php');
 				echo "check the log files, the user was not authenticated!";
 				}
-		else{
-		//echo "Welcome " . $name[0]."&nbsp".$name[1]. "!<br>";
-		//echo "<a href='logout.php'>Log Out</a>";
-		//header('location:home.php');
-		}
 	}
 }
 ob_flush();
@@ -155,18 +151,69 @@ ob_flush();
           		<p><iframe width="420" height="315" src="http://www.youtube.com/embed/CaJCmoGIW24" frameborder="10" allowfullscreen></iframe></p>
      			<a class="close-reveal-modal">&#215;</a>
           	</div>
-          	<!--  <a class="btn primary large" href="http://www.youtube.com/watch?feature=player_embedded&v=CaJCmoGIW24">Watch Demo &raquo;</a></p>  -->
-          	<!--  <button class="btn btn-large" href="#" rel="CaJCmoGIW24" title="jQuery YouTube Popup Player Plugin TEST">Test Me</a>
-          	<!--  -->
         </div>
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="span6">
+        <!-- Tabs -->
+                  <h3>Instances</h3>
+          <ul data-bs-tabs-options="{}" class="tabs" data-behavior="BS.Tabs">
+            <li class="active"><a href="#home">AWS Service Updates</a></li>
+            <li><a>Profile</a></li>
+            <li><a>Messages</a></li>
+            <li><a>Settings</a></li>
+          </ul>
+          <div id="my-tab-content" class="tab-content">
+            <div style="display: block; overflow: visible;" class="active" id="home">
+              <p><script language="JavaScript" src="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y" type="text/javascript"></script>
+
+<noscript>
+<a href="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y&html=y">View RSS feed</a>
+</noscript></p>
+            </div>
+            <div id="profile">
+              <p>Food truck fixie locavore, accusamus mcsweeney's marfa
+nulla single-origin coffee squid. Exercitation +1 labore velit, blog
+sartorial PBR leggings next level wes anderson artisan four loko
+farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim
+ craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo
+ nostrud organic, assumenda labore aesthetic magna delectus mollit.
+Keytar helvetica VHS salvia yr, vero magna velit sapiente labore
+stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable
+jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art
+party scenester stumptown, tumblr butcher vero sint qui sapiente
+accusamus tattooed echo park.</p>
+            </div>
+            <div id="messages">
+              <p>Banksy do proident, brooklyn photo booth delectus sunt
+artisan sed organic exercitation eiusmod four loko. Quis tattooed iphone
+ esse aliqua. Master cleanse vero fixie mcsweeney's. Ethical portland
+aute, irony food truck pitchfork lomo eu anim. Aesthetic blog DIY,
+ethical beard leggings tofu consequat whatever cardigan nostrud.
+Helvetica you probably haven't heard of them carles, marfa veniam
+occaecat lomo before they sold out in shoreditch scenester sustainable
+thundercats. Consectetur tofu craft beer, mollit brunch fap echo park
+pitchfork mustache dolor.</p>
+            </div>
+            <div id="settings">
+              <p>Sunt qui biodiesel mollit officia, fanny pack put a
+bird on it thundercats seitan squid ad wolf bicycle rights blog. Et aute
+ readymade farm-to-table carles 8-bit, nesciunt nulla etsy adipisicing
+organic ea. Master cleanse mollit high life, next level Austin nesciunt
+american apparel twee mustache adipisicing reprehenderit hoodie portland
+ irony. Aliqua tofu quinoa +1 commodo eiusmod. High life williamsburg
+cupidatat twee homo leggings. Four loko vinyl DIY consectetur nisi,
+marfa retro keffiyeh vegan. Fanny pack viral retro consectetur gentrify
+fap.</p>
+            </div>
+          </div>
+        <!-- Example row of columns
+        <div class="tab-pane" data-behavior="BS.Tabs">
+          <div class="tabs">
+          	<div class="tab-content">
             <h2>Heading</h2>
             <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
             <p><a class="btn" href="#">View details &raquo;</a></p>
+          	</div>
           </div>
-          <div class="span5">
+          <div class="tabs">
             <h2>Heading</h2>
              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
             <p><a class="btn" href="#">View details &raquo;</a></p>
@@ -178,7 +225,7 @@ ob_flush();
           </div>
         </div>
         <hr>
-        <!-- Example row of columns -->
+        <!-- Example row of columns
         <div class="row">
           <div class="span6">
             <h2>Heading</h2>
@@ -195,9 +242,9 @@ ob_flush();
             <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
             <p><a class="btn" href="#">View details &raquo;</a></p>
           </div>
-        </div>
+        </div>  -->
         <footer>
-          <p>&copy; Company 2011</p>
+          <p>&copy; Pearson 2012
         </footer>
       </div>
     </div>
