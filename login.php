@@ -6,7 +6,7 @@ ob_start();
 <html>
 <head>
 
-<title>Create a nice login form using CSS3 and HTML5</title>
+<title>Pearson AWS Login</title>
 <style>
 
 html, body
