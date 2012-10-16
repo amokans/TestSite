@@ -7,15 +7,17 @@ include_once ('connect.php');
 //echo time()."<br>";
 //unset($_SESSION['LAST_ACTIVITY']);
 if (!isset($_SESSION['LAST_ACTIVITY'])){
-	echo "You are not logged in. Please <a href='login.php'>login</a>";
+	echo "You are not logged in. Redirecting you to the login page.<br>Click&nbsp<a href='login.php'>here</a> if you are not automatically redirected.";
+	header("refresh: 5;url=login.php");
 	break;
 }
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 900)) {
     // last request was more than 15 minutes ago
     $_SESSION = array();     // unset $_SESSION variable for the runtime 
     session_destroy();   // destroy session data in storage
-    echo "Your Session has expired. Please Login again.<br>";
-    echo "<a href='login.php'>Login</a>";
+    echo "Your Session has expired. Please Login again.<br> Redirecting...<p></p>Click&nbsp<a href='login.php'>here</a> if you are not automatically redirected.";
+	//sleep(5);//seconds to wait..
+	header("refresh: 5;url=login.php");
 	break;
 }
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] < 900)){
@@ -94,17 +96,7 @@ ob_flush();
 		  $sql="Select firstName, lastName FROM users WHERE email='$user'";
 		  $result=mysql_query($sql,$link);
 		  $name=mysql_fetch_array($result);
-		  /*echo "<li class='menu'>  
-                        <a class='menu' href='#'>Account<b class='caret'></b></a>  
-                        <ul class='menu-dropdown'>  
-                            <li><a href='#'>Settings</a></li>  
-                            <li><a href='#'>Profile</a></li>  
-                            <li class='divider'></li>  
-                            <li><a href='logout.php'>Logout</a></li> 
-                        </ul>  
-             	</li>";*/
            ?>
-		  <!--  <li class="pull-right menu">  -->
    			<li class="menu pull-right">
    				<a class="pull-right menu" href='#'>Welcome, <?php echo $name[firstName]."&nbsp".$name[lastName];?><b class="caret"</b></a>
 			<ul class="menu-dropdown pull-right">
@@ -153,126 +145,31 @@ ob_flush();
           	</div>
         </div>
         <!-- Tabs -->
-                  <h3>Instances</h3>
+                  <h3>Service Updates</h3>
           <ul data-bs-tabs-options="{}" class="tabs" data-behavior="BS.Tabs">
-            <li class="active"><a href="#aws_ec2">AWS Service Updates</a></li>
+            <li class="active"><a href="#aws_ec2">AWS Health</a></li>
             <li><a >RightScale</a></li>
-            <li><a>Messages</a></li>
-            <li><a>Settings</a></li>
+            <li><a>Monitoring</a></li>
           </ul>
           <div id="my-tab-content" class="tab-content">
             <div style="display: block; overflow: visible;" class="active" id="aws_ec2">
-              <p><script language="JavaScript" src="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y" type="text/javascript"></script>
-
-<noscript>
-<a href="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y&html=y">View RSS feed</a>
-</noscript></p>
+              <p>
+              	<script language="JavaScript" src="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y" type="text/javascript"></script>
+				<noscript>
+				<a href="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y&html=y">View RSS feed</a>
+				</noscript>
+			  </p>
             </div>
-            <div id="content">
-              <p>    <script src="http://www.google.com/jsapi?key=AIzaSyA5m1Nc8ws2BbmPRwKu5gFradvD_hgq6G0" type="text/javascript"></script>
-    <script type="text/javascript">
-    /*
-    *  How to load a feed via the Feeds API.
-    */
-    
-    google.load("feeds", "1");
-    
-    // Our callback function, for when a feed is loaded.
-    function feedLoaded(result) {
-      if (!result.error) {
-        // Grab the container we will put the results into
-        var container = document.getElementById("content");
-        container.innerHTML = '';
-    
-        // Loop through the feeds, putting the titles onto the page.
-        // Check out the result object for a list of properties returned in each entry.
-        // http://code.google.com/apis/ajaxfeeds/documentation/reference.html#JSON
-        for (var i = 0; i < result.feed.entries.length; i++) {
-          var entry = result.feed.entries[i];
-          var div = document.createElement("div");
-          div.appendChild(document.createTextNode(entry.title));
-          container.appendChild(div);
-        }
-      }
-    }
-    
-    function OnLoad() {
-      // Create a feed instance that will grab Digg's feed.
-      var feed = new google.feeds.Feed("https://my.rightscale.com/acct/19654/user_notifications/feed.atom?feed_token=fada3a148e2f4effb8e2868a134448e13e466964");
-    
-      // Calling load sends the request off.  It requires a callback function.
-      feed.load(feedLoaded);
-    }
-    
-    google.setOnLoadCallback(OnLoad);
-    </script>
-    Loading...
-              	</p>
-            </div>
-            <div id="messages">
-              <p>Banksy do proident, brooklyn photo booth delectus sunt
-artisan sed organic exercitation eiusmod four loko. Quis tattooed iphone
- esse aliqua. Master cleanse vero fixie mcsweeney's. Ethical portland
-aute, irony food truck pitchfork lomo eu anim. Aesthetic blog DIY,
-ethical beard leggings tofu consequat whatever cardigan nostrud.
-Helvetica you probably haven't heard of them carles, marfa veniam
-occaecat lomo before they sold out in shoreditch scenester sustainable
-thundercats. Consectetur tofu craft beer, mollit brunch fap echo park
-pitchfork mustache dolor.</p>
-            </div>
+            <div id="rightscale"><p>
+				<script type='text/javascript' charset='utf-8' src='http://scripts.hashemian.com/jss/feed.js?print=yes&numlinks=10&summarylen=50&seedate=yes&popwin=no&url=http:%2F%2Fmy.rightscale.com%2Facct%2F19654%2Fuser_notifications%2Ffeed.atom%3Ffeed_token%3Dfada3a148e2f4effb8e2868a134448e13e466964'>
+				</script>
+            <p></div>
             <div id="settings">
-              <p>Sunt qui biodiesel mollit officia, fanny pack put a
-bird on it thundercats seitan squid ad wolf bicycle rights blog. Et aute
- readymade farm-to-table carles 8-bit, nesciunt nulla etsy adipisicing
-organic ea. Master cleanse mollit high life, next level Austin nesciunt
-american apparel twee mustache adipisicing reprehenderit hoodie portland
- irony. Aliqua tofu quinoa +1 commodo eiusmod. High life williamsburg
-cupidatat twee homo leggings. Four loko vinyl DIY consectetur nisi,
-marfa retro keffiyeh vegan. Fanny pack viral retro consectetur gentrify
-fap.</p>
+              <p><a href="#"><img src="https://my.rightscale.com/sketchy1-57/hosts/01-2320B2G/plugins/load/views/load.png?title=prd-mdb-01&period=day&clip=&size=small&deployment_title=&tok=pV4BcejSDhqFWmE0FHDs1AA&tz=America%2FDenver&t=1350079184736"></a></p>
             </div>
           </div>
-        <!-- Example row of columns
-        <div class="tab-pane" data-behavior="BS.Tabs">
-          <div class="tabs">
-          	<div class="tab-content">
-            <h2>Heading</h2>
-            <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-          	</div>
-          </div>
-          <div class="tabs">
-            <h2>Heading</h2>
-             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-         </div>
-          <div class="span5">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-          </div>
-        </div>
-        <hr>
-        <!-- Example row of columns
-        <div class="row">
-          <div class="span6">
-            <h2>Heading</h2>
-            <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-          </div>
-          <div class="span5">
-            <h2>Heading</h2>
-             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-         </div>
-          <div class="span5">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-          </div>
-        </div>  -->
         <footer>
-          <p>&copy; Pearson 2012
+          <p>&copy; Pearson 2012</p>
         </footer>
       </div>
     </div>
