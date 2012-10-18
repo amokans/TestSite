@@ -378,7 +378,7 @@ if(isset($_POST['firstName']) and isset($_POST['lastName']) and isset ($_POST['e
 				$_SESSION['cCenter'] = $cCenter;
 				$sql="INSERT INTO users(firstName,lastName,email,employeeId,password,salt) VALUES('$fname','$lname','$email','$employeeId','$pwd','$salt')";
 				mysql_query($sql,$link);
-				header('location:/../aws/confirm.php');//goto new location
+				header('location:db1.php');//goto new location
 			}
 		}
 	}else{
