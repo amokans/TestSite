@@ -82,7 +82,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] < 
     <div class="topbar">
       <div class="topbar-inner" data-behavior="BS.Dropdown">
         <div class="container-fluid">
-          <a class="brand" href="#">Pearson AWS Portal</a>
+          <a class="brand" href="home.php">Pearson AWS Portal</a>
           <ul class="nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -106,7 +106,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] < 
           <h5>Instances</h5>
           <ul>
             <li><a href="aws-sdk.php">Create Instances</a></li>
-            <li><a href="view_instances.php">View Instances</a></li>
+            <li><a href="view_instances.php"><b>View Instances</b></a></li>
           </ul>
           <h5>Billing</h5>
           <ul>
@@ -124,46 +124,35 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] < 
       <div class="content">
         <!-- Main hero unit for a primary marketing message or call to action -->
         <div class="hero-unit">
-          <h1>Pearson AWS Portal</h1>
-          <p>In this portal you will be able to create new AWS instances for QA and Development purposes with the help of the AWS APIs. Your cost center will be billed according to the purchases.</p>
-          <p><a class="btn btn-large" href="#" data-reveal-id="myModal" data-animation="fadeAndPop" data-dismissmodalclass="close-reveal-modal">Click for Video</a>
-</p>
-          	<div id="myModal" class="reveal-modal">
-     		<h2>AWS Intro Video</h2>
-          		<p><iframe width="420" height="315" src="http://www.youtube.com/embed/CaJCmoGIW24" frameborder="10" allowfullscreen></iframe></p>
-     			<a class="close-reveal-modal">&#215;</a>
-          	</div>
-          	<div id="myInstances" class="condensed-table">
-          		
-          	</div>
-        </div>
-        <!-- Tabs -->
-                  <h3>Service Updates</h3>
-          <ul data-bs-tabs-options="{}" class="tabs" data-behavior="BS.Tabs">
-            <li class="active"><a href="#aws_ec2">AWS Health</a></li>
-            <li><a >RightScale</a></li>
-            <li><a>Monitoring</a></li>
-          </ul>
-          <div id="my-tab-content" class="tab-content">
-            <div style="display: block; overflow: visible;" class="active" id="aws_ec2">
-              <p>
-              	<script language="JavaScript" src="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y" type="text/javascript"></script>
-				<noscript>
-				<a href="http://itde.vccs.edu/rss2js/feed2js.php?src=http%3A%2F%2Fstatus.aws.amazon.com%2Frss%2Fec2-us-east-1.rss&chan=n&num=5&desc=1&date=y&targ=y&html=y">View RSS feed</a>
-				</noscript>
-			  </p>
-            </div>
-            <div id="rightscale"><p>
-				<script type='text/javascript' charset='utf-8' src='http://scripts.hashemian.com/jss/feed.js?print=yes&numlinks=10&summarylen=50&seedate=yes&popwin=no&url=http:%2F%2Fmy.rightscale.com%2Facct%2F19654%2Fuser_notifications%2Ffeed.atom%3Ffeed_token%3Dfada3a148e2f4effb8e2868a134448e13e466964'>
-				</script>
-            <p></div>
-            <div id="settings">
-              <p><a href="#"><img src="https://my.rightscale.com/sketchy1-57/hosts/01-2320B2G/plugins/load/views/load.png?title=prd-mdb-01&period=day&clip=&size=small&deployment_title=&tok=pV4BcejSDhqFWmE0FHDs1AA&tz=America%2FDenver&t=1350079184736"></a></p>
-            </div>
-          </div>
-        <footer>
-          <p>&copy; Pearson 2012</p>
-        </footer>
+          <h1>Instance List</h1>
+          <p>This shows all the instances that you have created within the US-East Region</p>
+
+          <!--  <p><a class="btn btn-large" href="#" data-reveal-id="myModal" data-animation="fadeAndPop" data-dismissmodalclass="close-reveal-modal">Click for Video</a>
+</p>  -->
+         </div> 	
+          	<div class="condensed-table">	
+				<?php
+				require_once 'AWSSDKforPHP/sdk.class.php';
+				$ec2 = new AmazonEC2();
+				$ec2->set_hostname('ec2.us-east-1.amazonaws.com');
+				$response = $ec2->describe_instances(); 
+				/*%******************************************************************************************%*/
+				
+				$instances = array();	
+				echo "<table align='center'>";
+				echo "<r> <td><b>InstanceId</b></td><td><b>InstanceState</b></td><td><b>InstanceType</b></td><td><b>InstanceTime</b></td><td><b>AvailabilityZone</b></td>";
+				foreach ($response->body->reservationSet->item as $item)
+				{
+				$instanceId = (string) $item->instancesSet->item->instanceId;
+				$instanceState = (string) $item->instancesSet->item->instanceState->name;
+				$instanceType = (string) $item->instancesSet->item->instanceType;
+				$instanceTime = (string) $item->instancesSet->item->launchTime;
+				$instanceLoc = (string) $item->instancesSet->item->placement->availabilityZone;
+				
+				echo '<tr> <td> ' . $instanceId . ' </td> <td>' . $instanceState . '</td> <td>' . $instanceType . '</td> <td>' . $instanceTime . ' </td> <td>' . $instanceLoc . '</td> </tr>';
+				}
+				?>
+			</div>
       </div>
     </div>
       <script>
