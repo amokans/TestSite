@@ -41,7 +41,6 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] < 
 				}
 	}
 }
-ob_flush();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +87,7 @@ ob_flush();
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-          <?php
+          <!--  <?php
           include_once('connect.php');
           ob_start();
           session_start();
@@ -96,7 +95,7 @@ ob_flush();
 		  $sql="Select firstName, lastName FROM users WHERE email='$user'";
 		  $result=mysql_query($sql,$link);
 		  $name=mysql_fetch_array($result);
-           ?>
+           ?>  -->
    			<li class="menu pull-right">
    				<a class="pull-right menu" href='#'>Welcome, <?php echo $name[firstName]."&nbsp".$name[lastName];?><b class="caret"</b></a>
 			<ul class="menu-dropdown pull-right">
@@ -115,8 +114,8 @@ ob_flush();
         <div class="well">
           <h5>Instances</h5>
           <ul>
-            <li><a href="#">Create Instances</a></li>
-            <li><a href="#">View Instances</a></li>
+            <li><a href="aws-sdk.php">Create Instances</a></li>
+            <li><a href="get-aws-list.php">View Instances</a></li>
           </ul>
           <h5>Billing</h5>
           <ul>
