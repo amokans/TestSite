@@ -293,12 +293,12 @@ fieldset
 <?php
 include_once ('connect.php');
 include_once ('salt.php');
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+/*if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
     // last request was more than 30 minutes ago
     session_unset();     // unset $_SESSION variable for the runtime 
     session_destroy();   // destroy session data in storage
     //echo "ERROR";
-}
+}*/
 if (!isset($_SESSION['LAST_ACTIVITY'])) {
 session_start();
 //echo $_SESSION['LAST_ACTIVITY'];// update last activity time stamp
@@ -320,8 +320,6 @@ session_start();
 			list($salt1) = mysql_fetch_array($result2);
 			list($count) = mysql_fetch_array($result);
 			if ($count > 0) {
-				//setcookie('user',$user,strtotime('+1 day'));
-				//setcookie('user', $user);
 				$_SESSION['salt'] = $salt1;
 				$_SESSION['pwd'] = $pwd;
 				$_SESSION['user'] = $user;
@@ -330,9 +328,6 @@ session_start();
 				$_SESSION['loginTime'] = $time;
 				$hash = sha1($user.$time.$salt1);
 				$_SESSION['hash'] = $hash;
-				//setcookie('hash', $hash);
-				//echo $_COOKIE['user'];
-				//header('location:/../aws/auth_user.php');
 				header('location:home.php');
 				}
 			echo "Bad Username or Password. <a href='reset_password.php'>Reset Password?</a><br>";
@@ -342,6 +337,4 @@ session_start();
 	}
 }
 ob_flush();
-//$time = getdate();
-//echo "<br>".$time[weekday].",&nbsp".$time[month]."&nbsp".$time[mday].",&nbsp".$time[year]."<br>";
 ?>
